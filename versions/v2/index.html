@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="Filtrify">
+    <meta name="keywords" content="javascript, jquery, lazy load, performance, plugin" />
+    <meta name="author" content="Luís Almeida">
+    <meta name="viewport" content="width=device-width">
+    <title>jQuery Unveil - A very lightweight plugin to lazy load images</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/github.min.css">
+  </head>
+
+  <body>
+
+    <header>
+      <h1>Unveil<small>.js</small></h1>
+      <p>A very lightweight plugin to lazy load images for jQuery or Zepto.js</p>
+
+      <iframe src="http://ghbtns.com/github-btn.html?user=luis-almeida&repo=unveil&type=watch" allowtransparency="true" frameborder="0" scrolling="0" width="55" height="20"></iframe>
+      <iframe src="http://ghbtns.com/github-btn.html?user=luis-almeida&repo=unveil&type=fork" allowtransparency="true" frameborder="0" scrolling="0" width="55" height="20"></iframe>
+      <a href="https://twitter.com/share" class="twitter-share-button" data-text="unveil.js - A very lightweight plugin to lazy load images" data-via="lmgalmeida" data-related="lmgalmeida" data-count="none">Tweet</a>
+    </header>
+
+    <p>Most of us are familiar with the <a target="_blank" href="http://www.appelsiini.net/projects/lazyload">Lazy Load</a> plugin by <a target="_blank" href="http://www.appelsiini.net/">Mika Tuupola</a>.
+    <p>This plugin is very useful and it boosts performance delaying loading of images in long web pages because images outside of the viewport (visible part of web page) won't be loaded until the user scrolls to them.</p>
+    <p>Lazy Load has some cool options such as custom effects, container, events or data attribute. If you're not gonna use any of them you can reduce the file size by leaving just the essential code to show the images.</p>
+    <p>That's what I did and this is my lightweight version of Lazy Load with support for serving high-resolution images to devices with retina displays - <strong>less than 1k</strong>.</p>
+    <p><i>As of version 2, a few more options have been added allowing more advanced functionality.</i></p>
+
+    <h2 id="usage">Usage</h2>
+    <p>Use a placeholder image in the src attribute - something to be displayed while the original image loads - and include the actual image source in a "data-src" attribute.</p>
+    <p>If you want to serve high-resolution images to devices with retina displays, you just have to include the source for those images in a "data-src-retina" attribute.</p>
+    <p>You don't need to include a "data-src-retina" attribute in all the image tags, unveil is smart enough to fallback to "data-src" or even do nothing in case there isn't any "data-src" specified.</p>
+    <pre><code>
+    &lt;img src="bg.png" data-src="img1.jpg" /&gt;
+    &lt;img src="bg.png" data-src="img2.jpg" data-src-retina="img2-retina.jpg" /&gt;
+    </code></pre>
+    <p>If you care about users without javascript enabled, you can include the original image inside a &lt;noscript&gt; tag:</p>
+    <pre><code>
+    &lt;noscript&gt;&lt;img src="img1.jpg" /&gt;&lt;/noscript&gt;
+    </code></pre>
+    <p>Run the script on document ready:</p>
+    <pre><code>
+    $(document).ready(function() {
+      $("img").unveil();
+    });
+    </code></pre>
+
+    <h2 id="demo">Demo</h2>
+    <p>If you're on a "normal" display, unveil will load the low resolution version (800x500). In case you're on a device with a retina display, the high resolution version (1280x800 in this case) will be loaded instead.</p>
+    <p>Scroll down to see it working - <i>images from <a href="http://lorempixel.com/">lorempixel</a></i>.</p>
+
+    <ul>
+      <li><img data-src="http://lorempixel.com/g/800/500/city/1" data-src-retina="http://lorempixel.com/g/1280/800/city/1" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></li>
+      <li><img data-src="http://lorempixel.com/g/800/500/city/2" data-src-retina="http://lorempixel.com/g/1280/800/city/2" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></li>
+      <li><img data-src="http://lorempixel.com/g/800/500/city/3" data-src-retina="http://lorempixel.com/g/1280/800/city/3" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></li>
+      <li><img data-src="http://lorempixel.com/g/800/500/city/4" data-src-retina="http://lorempixel.com/g/1280/800/city/4" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></li>
+      <li><img data-src="http://lorempixel.com/g/800/500/city/5" data-src-retina="http://lorempixel.com/g/1280/800/city/5" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></li>
+      <li><img data-src="http://lorempixel.com/g/800/500/city/6" data-src-retina="http://lorempixel.com/g/1280/800/city/6" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></li>
+      <li><img data-src="http://lorempixel.com/g/800/500/city/7" data-src-retina="http://lorempixel.com/g/1280/800/city/7" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></li>
+      <li><img data-src="http://lorempixel.com/g/800/500/city/8" data-src-retina="http://lorempixel.com/g/1280/800/city/8" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></li>
+      <li><img data-src="http://lorempixel.com/g/800/500/city/9" data-src-retina="http://lorempixel.com/g/1280/800/city/9" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></li>
+      <li><img data-src="http://lorempixel.com/g/800/500/city/10" data-src-retina="http://lorempixel.com/g/1280/800/city/10" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" /></li>
+    </ul>
+
+    <h2 id="options">Options</h2>
+
+    <h3 id="threshold">Threshold</h3>
+    <p>By default, images are only loaded and "unveiled" when the user scrolls to them and they became visible on the screen.</p>
+    <p>If you want your images to load earlier than that, lets say 200px before they appear on the screen, you just have to:</p>
+    <pre><code>
+    $("img").unveil({ threshold: 200 });
+    </code></pre>
+
+    <h3 id="debounce">Debounce</h3>
+    <p>While the user is scrolling or resizing the window, Unveil is continuously working on the background, recalculating the new position of each image on the page in order to find out if it has become visible in the viewport. This can become very expensive for the browser since these events are fired frequently.</p>
+    <p>We can have a huge performance boost if we wait before doing all of this computation until after a threshold of time, e.g. 100ms:</p>
+    <pre><code>
+    $("img").unveil({ debounce: 100 });
+    </code></pre>
+
+    <h3 id="container">Container</h3>
+    <p>If the images you want to "unveil" are inside a container with a vertical scrollbar, you just have to pass your container as a jQuery object:</p>
+    <pre><code>
+    $("img").unveil({ container: $("ul") });
+    </code></pre>
+
+    <h3 id="custom">Custom</h3>
+    <p>Lets say you think Unveil doesn't do enough for you. You have a crazy (or not so crazy) use case and you need to control how your images are unveiled. If you're in this position, you can tell the plugin not to "unveil" the images automatically. That basically means you want to do the heavy lifting yourself.</p>
+    <pre><code>
+    $("img").unveil({ custom: true });
+    </code></pre>
+    <p>This option combined with the <a href="#on:unveil">unveil</a> event can be <a href="demo/screen_size.html">extremely helpful</a>.</p>
+
+    <h2>Events: <code>trigger</code></h2>
+
+    <h3 id="trigger:unveil">Unveil</h3>
+    <p>You can still trigger image loading whenever you need.</p>
+    <p>All you have to do is select the images you want to "unveil" and trigger the event:</p>
+    <pre><code>
+    $("img").trigger("unveil");
+    </code></pre>
+
+    <h3 id="trigger:lookup">Lookup</h3>
+    <p>It is also possible to lookup for images in the viewport that haven't been "unveiled" yet.</p>
+    <p>This can be useful, for instance, in case of a tabbed layout.</p>
+    <pre><code>
+    $(window).trigger("lookup");
+    </code></pre>
+
+    <h2>Events: <code>on</code></h2>
+
+    <h3 id="on:unveil">Unveil</h3>
+    <p>When an image becomes visible within the viewport and before it's "unveiled", an "unveil" event is fired:</p>
+    <pre><code>
+    $("img")
+      // register the event listener before initializing unveil
+      .on("unveil", function() {
+        // "this" refers to the image's DOM node
+      })
+      .unveil();
+    </code></pre>
+
+    <p>You can use this event to do more advanced stuff like adding some fancy <a href="demo/entrance_animations.html" target="_blank">entrance animations</a> to your images or <a href="demo/screen_size.html" target="_blank">serving images by screen size</a> with the help of the <a href="#custom">custom</a> option.</p>
+
+    <h3 id="on:unveiled">Unveiled</h3>
+    <p>When an image is "unveiled", an event with that same name is fired.</p>
+    <p>You can listen to this event if you need "to do things" after an image has been unveiled.</p>
+
+    <pre><code>
+    $("img")
+      // register the event listener before initializing unveil
+      .on("unveiled", function() {
+        // "this" refers to the image's DOM node
+      })
+      .unveil();
+    </code></pre>
+
+    <h2 id="off:unveil">Events: <code>off</code></h2>
+    <p>You can remove all the "unveil" event handlers at any time:</p>
+    <pre><code>
+    // Without custom container
+    $(window).off("unveil");
+
+    // With custom container:
+    // $("img").unveil({ container: $("ul") });
+    $("ul").off("unveil");
+    </code></pre>
+
+    <h2 id="browser_support">Browser support</h2>
+    <p>Compatible with All Browsers and IE7+.</p>
+
+    <h2 id="download">Download</h2>
+    <p>Download the script from the project page on <a href="https://github.com/luis-almeida/unveil">GitHub</a>.</p>
+    <p>If you have any suggestion or bug to report please use github issues or get it touch with me on twitter - <a href="https://twitter.com/lmgalmeida">@lmgalmeida</a>.</p>
+
+    <h2 id="license">License</h2>
+    <p>Unveil is licensed under the <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+
+    <script src="//yandex.st/highlightjs/8.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="jquery.unveil.js"></script>
+    <script>
+    $(document).ready(function() {
+      $("img").unveil({ threshold: 100, debounce: 50 });
+    });
+    </script>
+
+    <script>
+    // Twitter
+    !function(d,s,id){
+      var js,fjs=d.getElementsByTagName(s)[0];
+      if(!d.getElementById(id)){
+        js=d.createElement(s);
+        js.id=id;
+        js.src="//platform.twitter.com/widgets.js";
+        fjs.parentNode.insertBefore(js,fjs);
+      }
+    }(document,"script","twitter-wjs");
+    // Analytics
+    var _gaq=[['_setAccount','UA-30936310-1'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+
+  </body>
+</html>
